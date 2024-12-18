@@ -52,7 +52,6 @@ void Dijkstra(std::vector<std::vector<edge>>& edges, int start, std::vector<int>
   }
   buckets.resize(maxLength * edges.size() + 1);
   buckets[0].push_back(start);
-  int vertex;
   int L = 0;
   while (L < buckets.size())
   {
@@ -61,7 +60,7 @@ void Dijkstra(std::vector<std::vector<edge>>& edges, int start, std::vector<int>
       ++L;
       continue;
     }
-    vertex = buckets[L].back();
+    int vertex = buckets[L].back();
     buckets[L].pop_back();
     for (const auto& e : edges[vertex]) {
       int neighbor = e.first;
@@ -70,9 +69,7 @@ void Dijkstra(std::vector<std::vector<edge>>& edges, int start, std::vector<int>
       if (distances[vertex] + weight < distances[neighbor]) {
         distances[neighbor] = distances[vertex] + weight;
         way[neighbor] = vertex;
-        if (distances[neighbor] < buckets.size()) {
-          buckets[distances[neighbor]].push_back(neighbor);
-        }
+        buckets[distances[neighbor]].push_back(neighbor);
       }
     }
   }
